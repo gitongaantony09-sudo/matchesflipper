@@ -1,3 +1,11 @@
+window.addEventListener('error', (e) => {
+  if (e.message.includes('Loading CSS chunk') || e.message.includes('Loading chunk')) {
+    if (!sessionStorage.getItem('chunk-reload')) {
+      sessionStorage.setItem('chunk-reload', '1');
+      window.location.reload();
+    }
+  }
+});
 (() => {
     var e,
         t,
@@ -23784,7 +23792,10 @@
             }
             return e;
         }),
-        (d.p = "/"),
+        (d.p = (function () {
+            var cs = document.currentScript && document.currentScript.src;
+            return cs ? cs.replace(/js\/[^\/]*$/, "") : "./";
+        })()),
         "u" > typeof document)
     ) {
         var u = function (e, t, n, i, a) {
